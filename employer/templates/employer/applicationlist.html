@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+Специалисты
+{% endblock %}
+{% block content %}
+<div class="wrap team-wrap grey" id="team">
+                    <div class="grid grid-pad">
+                        <div class="content" >
+
+                            <h2><b>Ваши Заявки</b></h2>
+                            <br>
+                            <br>
+                            <br>
+                            {% if applications  %}
+                            {% for i in applications %}
+                            <div class="col-1-4" >
+                                <div class="content staff-content">
+                                    <div class="recent-work staff-img">
+                                        <div class="work-info staff-info">
+                                            <h5>{{ i.employer|truncatechars:20 }}</h5>
+                                            <span>{{ i.date }}</span>
+                                            <span>{{ i.category }}</span>
+                                            {% if user == i.author %}
+                                            <a href="{% url 'application_edit' i.pk %}" class="btn btn-succes">Редактировать</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <h2>У вас нет заявок</h2>
+                            <div class="col">
+                                <div class="recent-work staff-img">
+                                    <h5><a href="{% url 'applicationcreate' %}" class="btn-primary btn">Записаться</a></h5>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End Team Section -->
+
+{% endblock %}

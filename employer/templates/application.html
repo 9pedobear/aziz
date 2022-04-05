@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Создать заявку
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="wrap contact" id="contact">
+    <div class="grid grid-pad" >
+    <br>
+    <br>
+    <br>
+    <br>
+        <h1><b>Заявка</b></h1>
+    <br>
+    <br>
+    <br>
+    {% csrf_token %}
+        <div class="container">
+            <div class="row justify-content center">
+                <form method="POST">
+                    {% csrf_token %}
+                    <p>{{ form.as_p }}</p>
+                     <button value="submit" class="btn btn-succes">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+Специалист
+{% endblock %}
+{% block content %}
+<div class="container p-5 m-5">
+<section class="home-about-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="ha-pic">
+                        <img src="{{ employer.photo.url }}" width="350" height="450" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ha-text">
+                        <h2><b>Про специолиста</b></h2>
+                        <br>
+                        <br>
+                        <p>{{ employer.description }}</p>
+                        <br>
+                        <br>
+                        <ul>
+                            <li>
+                                <h4>Имя: </h4>
+                                <span class="icon_check">
+                                    {{ employer.name }}
+                                </span>
+                            </li>
+                            <br>
+                            <br>
+                            <li><span class="icon_check"></span><h4>Город: </h4>{{ employer.city }}</li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+                <!-- End Team Section -->
+
+{% endblock %}

@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Главная страница
+{% endblock %}
+{% block content %}
+
+
+            <!-- CurveUp -->
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+
+        <div class="carousel-item active">
+
+      <img src="{% static 'images/gory.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+
+      {% for i in sliders %}
+    <div class="carousel-item">
+
+      <img src="{{ i.image.url }}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{ i.title }}</h5>
+        <p>{{ i.content }}</p>
+      </div>
+    </div>
+      {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+            <!-- Services Section -->
+            <div class="wrap services-wrap" id="services">
+                <section class="grid grid-pad services">
+                    <h2><b>Наши услуги</b></h2>
+                    <br>
+                    <br>
+                    <div class="wrap team-wrap grey" id="team">
+                    <div class="grid grid-pad">
+                    <div class="container md-3">
+                        {% for i in categories %}
+                        <div class="col-1-4 service-box service-1" >
+                        <div class="content">
+
+                            <div class="service-entry">
+                                <h3>{{ i.direction|truncatechars:30 }}</h3>
+                                <p>{{ i.direction }}</p>
+                                <a class="btn read-more" href="{% url 'applicationcreate' %}">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+                    </div>
+                    </div>
+                </section>
+            </div>
+<br>
+<br>
+            <!-- End Services Section -->
+            
+            <!-- CurveDown -->
+
+            <!-- End Quotes Section -->
+
+
+                <!-- CurveUp -->
+                <svg class="curveUpColor curveGrey" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+                </svg>
+
+                <!-- Team Section -->
+                <div class="wrap team-wrap grey" id="team">
+                    <div class="grid grid-pad">
+                        <div class="content" >
+                            <h2><b>Наша команда</b></h2>
+                            <br>
+                            <br>
+                            {% for i in employers %}
+                            <div class="col-1-4" >
+                                <div class="content staff-content">
+                                    <div class="recent-work staff-img">
+                                        <div class="img-wrap staff-img">
+                                            <a href="{% url 'employer_detail' i.pk %}">
+                                            <img src="{{ i.photo.url }}" alt="">
+                                                </a>
+                                            <div class="team-social">
+                                                <a class="sl-fb" href="#"><i class="icon-facebook"></i></a>
+                                                <a class="sl-tw" href="#"><i class="icon-twitter"></i></a>
+                                                <a class="sl-gp" href="#"><i class="icon-googleplus2"></i></a>
+                                                <a class="sl-ln" href="#"><i class="icon-linkedin"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="work-info staff-info">
+                                            <h5>{{ i.name }}</h5>
+                                            {% if i.work == None %}<span>{{ i.work }}</span>{% else %}{% endif %}
+                                            <span>{{ i.description|truncatechars:100 }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End Team Section -->
+
+                <!-- CurveUp -->
+                <svg class="curveUpColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+                </svg>
+
+                <!-- Clients Logos Section -->
+                <div class="wrap" >
+                    <div class="grid grid-pad">
+                        <div class="col-1-1">
+                            <div class="content">
+                                <!-- Start of Carousel Container -->
+                                <div class="cl-logo-carousel col-sm-12">
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+
+                                            <img src="{% static 'images/clients/1.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+                                            <img src="{% static 'images/clients/2.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+                                            <img src="{% static 'images/clients/3.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+                                            <img src="{% static 'images/clients/4.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+                                            <img src="{% static 'images/clients/5.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+                                            <img src="{% static 'images/clients/1.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+                                            <img src="{% static 'images/clients/2.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                    <div class="item"><!-- Start of item -->
+                                    <a href="#">
+                                        <figure>
+                                            <img src="{% static 'images/clients/3.png' %}" alt="" />
+                                        </figure>
+                                    </a>
+                                    </div><!-- End of item -->
+                                    
+                                </div>
+                                <!-- End of Carousel Container -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Clients Logos Section -->
+
+                <!-- CurveDown -->
+                <svg class="curveDownColor curveMapUp" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+                </svg>
+                
+                <!-- Parallax Section -->
+                <div class="map">                    
+                    <div class="wrap">
+                        <section id="cd-google-map">
+                            <div id="google-container"></div>
+                            <div id="cd-zoom-in"></div>
+                            <div id="cd-zoom-out"></div>
+                        </section>
+                    </div>
+                </div>
+                <!-- End Parallax Section -->
+
+                <!-- CurveUp -->
+                <svg class="curveUpColor curveMapDown" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+                </svg>
+
+                <!-- Contact Section -->
+                <div class="wrap contact" id="contact">
+                    <div class="grid grid-pad" >
+                        <h2><b>Контакты</b></h2>
+                        <br>
+                        <br>
+                        <div class="col-1-2" >
+                            <div class="content address">
+                                <h3>Свяжитесь с нами</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto fugit esse soluta quae debitis quibusdam harum voluptatem, maxime, aliquam sequi. Tempora ipsum magni unde velit corporis fuga, necessitatibus blanditiis.</p>
+                                <address>
+                                    <div>
+                                        <div class="box-icon">
+                                            <i class="icon-location"></i>
+                                        </div>
+                                        <span>Адрес:</span>
+                                        <p>Ахунбаева пересекает проспет Манаса 66</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <div class="box-icon">
+                                            <i class="icon-clock"></i>
+                                        </div>
+                                        <span>Расписание:</span>
+                                        <p>Понедельник - Пятница с 9 утра до 5 вечера</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <div class="box-icon">
+                                            <i class="icon-phone"></i>
+                                        </div>
+                                        <span>Телефон:</span>
+                                        <p>+997 777 77 77 77</p>
+                                    </div>                                  
+                                </address>
+                            </div>
+                        </div>
+                         <div class="col-3-1 pleft-25" >
+                            <div class="content contact-form">
+                                {% if user.is_authenticated %}
+
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button value="submit" class="btn btn-succes">Отправить</button>
+                                </form>
+                            </div>
+                             {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End Contact Section -->
+<br>
+<br>
+<br>
+                <!-- CurveDown -->
+                <svg class="curveDownColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+                </svg>
+
+{% endblock %}

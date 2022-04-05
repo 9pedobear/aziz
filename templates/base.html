@@ -1,0 +1,151 @@
+{% load static %}
+<!doctype html>
+<!--
+	The7 by TEMPLATE STOCK
+	templatestock.co @templatestock
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'css/simplegrid.css' %}">
+        <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+        <link rel="stylesheet" href="{% static 'css/lightcase.css' %}">
+        <link rel="stylesheet" href="{% static 'js/owl-carousel/owl.carousel.css' %}" />
+        <link rel="stylesheet" href="{% static 'js/owl-carousel/owl.theme.css' %}" />
+        <link rel="stylesheet" href="{% static 'js/owl-carousel/owl.transitions.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        <!-- Google Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+           <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+           <!--[if lt IE 9]>
+             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+           <![endif]-->
+        </head>
+        <body id="home">
+            <!-- Header -->
+<!--            <header id="top-header" class="header-home">-->
+<!--                <div class="grid">-->
+<!--                    <div class="col-1-1">-->
+<!--                        <div class="content">-->
+<!--                            <div class="logo-wrap">-->
+<!--                                <a href="#0" class="logo">The7</a>-->
+<!--                            </div>-->
+<!--                            <nav class="navigation">-->
+<!--                                <input type="checkbox" id="nav-button">-->
+<!--                                <label for="nav-button" onclick></label>-->
+<!--                                <ul class="nav-container">-->
+<!--                                    <li><a href="/" class="current">Главная страница</a></li>-->
+<!--                                    <li><a href="{% url 'employers' %}" class="current">Специалисты</a></li>-->
+<!--                                    {% if user.is_authenticated %}-->
+<!--                                    <li><a href="{% url 'applicationcreate' %}">Записаться</a></li>-->
+<!--                                    <li><a href="{% url 'applicationlist' %}">Мои заявки</a></li>-->
+<!--                                    <li>{{ user.name }}</li>-->
+<!--                                    <li><a href="{% url 'logout' %}?next=/">Выйти</a></li>-->
+<!--                                    {% else %}-->
+<!--                                    <li><a href="{% url 'login' %}">Авторизоваться</a></li>-->
+<!--                                    <li><a href="{% url 'registerPage' %}">Регистрация</a></li>-->
+<!--                                    {% endif %}-->
+<!--                                    {% if user.is_staff %}-->
+<!--                                    <li><a href="{% url 'feedback' %}">Обратные ответы</a></li>-->
+
+<!--                                    {% endif %}-->
+<!--                                </ul>-->
+<!--                            </nav>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </header>-->
+            <!-- End Header -->
+            <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3  ">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">Test</span>
+      </a>
+
+      <ul class="nav nav-pills">
+
+                                    <li class="nav-item m-2"><a href="/" class="current">Главная страница</a></li>
+                                    <li class="nav-item m-2"><a href="{% url 'employers' %}" class="current">Специалисты</a></li>
+                                    {% if user.is_authenticated %}
+                                    <li class="nav-item m-2"><a href="{% url 'applicationcreate' %}">Записаться</a></li>
+                                    <li class="nav-item m-2"><a href="{% url 'applicationlist' %}">Мои заявки</a></li>
+                                    <li class="nav-item m-2">{{ user.name }}</li>
+                                    <li class="nav-item m-2"><a href="{% url 'logout' %}?next=/">Выйти</a></li>
+                                    {% else %}
+                                    <li class="nav-item m-2"><a href="{% url 'login' %}">Авторизоваться</a></li>
+                                    <li class="nav-item m-2"><a href="{% url 'registerPage' %}">Регистрация</a></li>
+                                    {% endif %}
+                                    {% if user.is_staff %}
+                                    <li class="nav-item  m-2"><a href="{% url 'feedback' %}">Обратные ответы</a></li>
+
+                                    {% endif %}
+
+      </ul>
+    </header>
+  </div>
+            {% block content %}
+            {% endblock content %}
+                <!-- CurveDown -->
+                <svg class="curveDownColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+                </svg>
+
+                <!-- Footer -->
+                <footer class="wrap">
+                    <div class="social-footer">
+                        <div class="grid grid-pad">
+                            <div class="col-1-1" >
+                                <div class="content">
+                                    <div class="social-set">
+                                        <a  href="#0"><i class="icon-facebook"></i></a>
+                                        <a  href="#0"><i class="icon-twitter"></i></a>
+                                        <a  href="#0"><i class="icon-linkedin2"></i></a>
+                                        <a  href="#0"><i class="icon-dribbble4"></i></a>
+                                        <a  href="#0"><i class="icon-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End Footer -->
+
+                <div class="loader-overlay">
+                    <div class="loader">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+
+                <!-- JS -->
+                <script src="{% static 'js/jquery.js' %}"></script>
+                <script src="{% static 'js/main.js' %}"></script>
+                <script src="{% static 'js/mixitup.js' %}"></script>
+                <script src="{% static 'js/smoothscroll.js' %}"></script>
+                <script src="{% static 'js/jquery.nav.js' %}"></script>
+                <script src="{% static 'js/owl-carousel/owl.carousel.min.js' %}"></script>
+                <script src="https://maps.googleapis.com/maps/api/js"></script>
+                <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+                <script src="{% static 'js/jquery.counterup.min.js' %} "></script>
+                <script src="{% static 'js/lightcase.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+            </body>
+        </html>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Редактирование
+{% endblock %}
+{% block content %}
+<br>
+<br>
+
+<div class="wrap contact" id="contact">
+    <div class="grid grid-pad" >
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button value="submit" class="btn btn-succes">Сохранить</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

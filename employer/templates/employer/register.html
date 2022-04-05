@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+Регистрация
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<div class="container d-flex flex-column h-100">
+<h2 class="p-5"><b>Регистрация</b></h2>
+<form method="POST" action="" class="flex-shrink-0">
+        {% csrf_token %}
+        <div class="container mt-5 ml-5">
+
+        <p class="lead">Username: {{ form.username }}</p>
+        <p>Password: {{ form.password1 }}</p>
+        <p>Password: {{ form.password2 }}</p>
+
+        <button value="submit" class="btn btn-succes container p-2">Войти</button>
+            </div>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+Специалисты
+{% endblock %}
+{% block content %}
+<div class="wrap team-wrap grey" id="team">
+                    <div class="grid grid-pad">
+                        <div class="content" >
+                            <h2><b>Ваши Заявки</b></h2>
+                            <br>
+                            <br>
+                            {% if feedbacks  %}
+                            {% for i in feedbacks %}
+                            <div class="col-1-3" >
+                                <div class="content staff-content">
+                                    <div class="recent-work staff-img">
+                                        <div class="work-info staff-info m-3">
+                                            <h5>{{ i.name }}</h5>
+                                            <span>{{ i.question }}</span>
+                                            <span>{{ i.phone }}</span>
+                                            <span>{{ i.date }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <h2>Пока никто не писал</h2>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+<br>
+<br>
+<br>
+                <!-- End Team Section -->
+
+{% endblock %}
