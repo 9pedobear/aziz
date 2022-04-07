@@ -1,307 +1,426 @@
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
 
-class Account(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
+class Account(models.Model):# Создаем таблицу
+    user = models.ForeignKey(  # Поле для выбора пользователя
+        User, # Аргумент связи с таблицей
+        on_delete=models.CASCADE # Аргумент для определения как
+        # удалять информацию в случае удаления поля
     )
-    name = models.CharField(
-        verbose_name='Имя',
-        max_length=20
+    name = models.CharField( # Поле имен
+        verbose_name='Имя', # Аргумент для альтернативного
+        # имени поля
+        max_length=20 # Аргумент для максимального
+        # количества знаков (обязательный)
     )
-    second_name = models.CharField(
-        verbose_name='Фамилия',
-        max_length=20
+    second_name = models.CharField( # Поле фамилий
+        verbose_name='Фамилия',# Аргумент для альтернативного
+        # имени поля
+        max_length=20 # Аргумент для максимального
+        # количества знаков (обязательный)
     )
-    birth_date = models.DateTimeField(
-        verbose_name='Дата рождение',
-        blank=True,
-        null=True
+    birth_date = models.DateTimeField(# Поле для даты
+        verbose_name='Дата рождение', # Аргумент для альтернативного
+        # имени поля
+        blank=True, # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True # Аргумент для обозначения поля
+        # пустым
     )
-    def get_absolute_url(self):
-        return reverse('view_account', kwargs={"pk": self.pk})
+    def get_absolute_url(self): # Метод для получения ссылки на
+        # таблицу
+        return reverse('view_account', kwargs={"pk": self.pk}) # Возвращаем ссылку на таблицу
 
-    def __str__(self):
+    def __str__(self): # Вывод данных в строковом виде
         return f'''{self.name} -
         '''
 
-    class Meta:
-        verbose_name = 'Аккаунт'
-        verbose_name_plural = 'Аккаунты'
-        ordering = ['name']
+    class Meta:  # Расширяем возможность класса
+        verbose_name = 'Аккаунт' # Имя таблицы в единственном числе
+        verbose_name_plural = 'Аккаунты' # Имя таблицы во множественном
+        ordering = ['name'] # Сортировка полю имени
 
 
-class Employer(models.Model):
-    name = models.CharField(
-        verbose_name='ФИО',
-        max_length=1000,
-        blank=True,
-        null=True
+class Employer(models.Model):                # Создаем таблицу с названием
+    # Сотрудников
+    name = models.CharField(                 # Поле ФИО сотрудников
+        verbose_name='ФИО',                  # Аргумент для альтернативного
+        # имени поля
+        max_length=1000,                     # Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True)                           # Аргумент для обозначения поля
+        # пустым
+    city = models.ForeignKey(                # Поле для выбора города
+        'Location',                          # Аргумент связи с таблицей
+        # содержащий список городов
+        verbose_name='Город',                # Аргумент для альтернативного
+        # имени поля
+        on_delete=models.CASCADE,            # Аргумент для определения как
+        # удалять информацию в случае удаления поля
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True)                           # Аргумент для обозначения поля
+        # пустым
+    work = models.ManyToManyField(           # Поле для выбора Деятельности
+        'Activity',                          # Аргумент связи с таблицей
+        verbose_name='Деятельность',         # Аргумент для альтернативного
+        # имени поля
+        related_name='activity',             # указывает имя обратной связи
+        # из модели Activity обратно в вашу модель.
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
     )
-    city = models.ForeignKey(
-        'Location',
-        verbose_name='Город',
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True
+    direction = models.ManyToManyField(      # Поле для выбора Направлений
+        'Category',                          # Аргумент связи с таблицей
+        verbose_name='Направление',          # Аргумент для альтернативного
+        # имени поля
+        related_name='category',             # указывает имя обратной связи
+        # из модели Category обратно в вашу модель.
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
     )
-    work = models.ManyToManyField(
-        'Activity',
-        verbose_name='Деятельность',
-        related_name='activity',
-        blank=True,
+    description = models.TextField(          # Поле для ввода Описания
+        verbose_name='Описание',             # Аргумент для альтернативного
+        # имени поля
+        max_length=1000,                     # Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True)                           # Аргумент для обозначения поля
+        # пустым
+    education = models.ManyToManyField(      # Поле для выбора Образования
+        'Education',                         # Аргумент связи с таблицей
+        verbose_name='Образование',          # Аргумент для альтернативного
+        # имени поля
+        related_name='education',            # указывает имя обратной связи
+        # из модели Education обратно в вашу модель.
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
     )
-    direction = models.ManyToManyField(
-        'Category',
-        verbose_name='Направление',
-        related_name='category',
-        blank=True,
+    experience = models.CharField(           # Поле для Стажа
+        verbose_name='Стаж',                 # Аргумент для альтернативного
+        # имени поля
+        max_length=1000,                     # Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True                            # Аргумент для обозначения поля
+        # пустым
     )
-    description = models.TextField(
-        verbose_name='Описание',
-        max_length=1000,
-        blank=True,
-        null=True)
-    education = models.ManyToManyField(
-        'Education',
-        verbose_name='Образование',
-        related_name='education',
-        blank=True,
+    cabinet = models.ManyToManyField(        # Поле для выбора Кабинета
+        'Adress',                            # Аргумент связи с таблицей
+        verbose_name='Кабинет',              # Аргумент для альтернативного
+        # имени поля
+        related_name='adress',               # указывает имя обратной связи
+        # из модели Adress обратно в вашу модель.
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
     )
-    experience = models.CharField(
-        verbose_name='Стаж',
-        max_length=1000,
-        blank=True,
-        null=True
+    personal_consultation = models.CharField(# Поле для назначения Личной
+        # встречи
+        verbose_name='Личная встреча',       # Аргумент для альтернативного
+        # имени поля
+        max_length=1000,                     # Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True                            # Аргумент для обозначения поля
+        # пустым
     )
-    cabinet = models.ManyToManyField(
-        'Adress',
-        verbose_name='Кабинет',
-        related_name='adress',
-        blank=True,
+    online_consultation = models.CharField(  # Поле для Онлайн-консультация
+        verbose_name='Онлайн-консультация',  # Аргумент для альтернативного
+        # имени поля
+        max_length=1000,                     # Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True                            # Аргумент для обозначения поля
+        # пустым
     )
-    personal_consultation = models.CharField(
-        verbose_name='Личная встреча',
-        max_length=1000,
-        blank=True,
-        null=True
+    duration_consultation = models.CharField(# Поле для Длительность консультации
+        verbose_name='Длительность консультации', # Аргумент для альтернативного
+        # имени поля
+        max_length=1000,                     # Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True                            # Аргумент для обозначения поля
+        # пустым
     )
-    online_consultation = models.CharField(
-        verbose_name='Онлайн-консультация',
-        max_length=1000,
-        blank=True,
-        null=True
+    couple_consultation_duration = models.CharField(# Поле для Длительность консультации для пар
+        verbose_name='Длительность консультации для пар', # Аргумент для альтернативного
+        # имени поля
+        max_length=1000,                     # Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True                            # Аргумент для обозначения поля
+        # пустым
     )
-    duration_consultation = models.CharField(
-        verbose_name='Длительность консультации',
-        max_length=1000,
-        blank=True,
-        null=True
+    photo = models.ImageField(               # Поле для Фото
+        verbose_name='Фото',                 # Аргумент для альтернативного
+        # имени поля
+        upload_to='photos/%Y/%m/%d/',        # Аргумент для указания пути
+        # сохранения фото
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
+        null=True                            # Аргумент для обозначения поля
+        # пустым
     )
-    couple_consultation_duration = models.CharField(
-        verbose_name='Длительность консультации для пар',
-        max_length=1000,
-        blank=True,
-        null=True
+    created = models.DateTimeField(          # Поле для даты
+        verbose_name='Дата публикации',      # Аргумент для альтернативного
+        # имени поля
+        auto_now_add=True,                   # Аргумент автодобавления даты
+        blank=True,                          # Аргумент для обозначения поля
+        # не обязательным для заполнения
     )
-    photo = models.ImageField(
-        verbose_name='Фото',
-        upload_to='photos/%Y/%m/%d/',
-        blank=True,
-        null=True
+    updated = models.DateTimeField(          # Поле для выбора города
+        verbose_name='Обновлено',            # Аргумент для альтернативного
+        # имени поля
+        auto_now=True,                       # Аргумент автодобавления даты
+        blank=True                           # Аргумент для обозначения поля
+        # не обязательным для заполнения
     )
-    created = models.DateTimeField(
-        verbose_name='Дата публикации',
-        auto_now_add=True,
-        blank=True,
-    )
-    updated = models.DateTimeField(
-        verbose_name='Обновлено',
-        auto_now=True,
-        blank=True
-    )
-    is_published = models.BooleanField(
-        verbose_name='Опубликовано',
-        default=True,
-        blank=True
+    is_published = models.BooleanField(      # Поле для определения
+        # опубликованно или нет
+        verbose_name='Опубликовано',         # Аргумент для альтернативного
+        # имени поля
+        default=True,                        # Аргумент для вставки
+        # состояния "Опубликовано" по умолчанию
+        blank=True                           # Аргумент для обозначения поля
+        # не обязательным для заполнения
     )
 
-    def get_absolute_url(self):
-        return reverse('view_employer', kwargs={"pk": self.pk})
+    def get_absolute_url(self):              # Метод для получения ссылки на
+        # таблицу
+        return reverse(                      # Возвращаем ссылку на таблицу
+            'view_employer',                 # Имя возрвращаемой таблицы
+            kwargs={"pk": self.pk}           # Берем из поля id ссылку на
+            # таблицу
+        )
 
-    def __str__(self):
-        return f'''{self.name} -
-        '''
+    def __str__(self):                       # Вывод данных в строковом виде
+        return f'''{self.name} -  
+        "{self.description}"
+        {self.direction} -
+        {self.education} -
+        {self.experience} лет
+        {self.cabinet} -
+        {self.personal_consultation} -
+        {self.online_consultation} -
+        {self.duration_consultation} минут
+        {self.couple_consultation_duration} минут
+        '''                                  # Обозначаем поля
 
-    class Meta:
-        verbose_name = 'Специалист'
-        verbose_name_plural = 'Специалисты'
-        ordering = ['name']
+    class Meta:                              # Расширяем возможность класса
+        verbose_name = 'Специалист'          # Имя таблицы в единственном числе
+        verbose_name_plural = 'Специалисты'  # Имя таблицы во множественном
+        # числе
+        ordering = ['name']                  # Сортировка полю имени
 
 
-class Adress(models.Model):
-    cabinet = models.CharField(
-        verbose_name='Кабинет',
-        max_length=1000,
-        blank=True,
-        null=True
+class Adress(models.Model):# Создаем таблицу
+    cabinet = models.CharField(# Поле с названием кабинета
+        verbose_name='Кабинет',# Аргумент для альтернативного
+        # имени поля
+        max_length=1000,# Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,# Аргумент для обозначения поля
+        null=True# Аргумент для обозначения поля
+        # пустым
     )
 
-    def get_absolute_url(self):
-        return reverse('view_adress', kwargs={"pk": self.pk})
+    def get_absolute_url(self):# Метод для получения ссылки на
+        # таблицу
+        return reverse('view_adress', kwargs={"pk": self.pk})# Возвращаем ссылку на таблицу
 
-    def __str__(self):
+    def __str__(self): # Вывод данных в строковом виде
         return f'''{self.cabinet} -
         '''
 
-    class Meta:
-        verbose_name = 'Адрес'
-        verbose_name_plural = 'Адреса'
-        ordering = ['cabinet']
+    class Meta:# Расширяем возможность класса
+        verbose_name = 'Адрес'# Имя таблицы в единственном числе
+        verbose_name_plural = 'Адреса'# Имя таблицы во множественном
+        # числе
+        ordering = ['cabinet']# Сортировка полю имени
 
 
-class Education(models.Model):
-    university = models.CharField(
-        verbose_name='Университет',
-        max_length=1000,
-        blank=True,
-        null=True
+class Education(models.Model):# Создаем таблицу
+    university = models.CharField(# Поле с названием универа
+        verbose_name='Университет',# Аргумент для альтернативного
+        # имени поля
+        max_length=1000,# Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,# Аргумент для обозначения поля
+        null=True# Аргумент для обозначения поля
+        # пустым
     )
-    skill = models.CharField(
-        verbose_name='Квалификация',
-        max_length=1000,
-        blank=True,
-        null=True
+    skill = models.CharField(# Поле с названием навыков
+        verbose_name='Квалификация',# Аргумент для альтернативного
+        # имени поля
+        max_length=1000,# Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,# Аргумент для обозначения поля
+        null=True# Аргумент для обозначения поля
+        # пустым
     )
-    education_date = models.DateTimeField(
-        verbose_name='Год получения',
-        blank=True,
-        null=True
+    education_date = models.DateTimeField(# Поле с названием года образования
+        verbose_name='Год получения',# Аргумент для альтернативного
+        # имени поля
+        blank=True,# Аргумент для обозначения поля
+        null=True# Аргумент для обозначения поля
+        # пустым
     )
 
-    def get_absolute_url(self):
-        return reverse('view_education', kwargs={"pk": self.pk})
+    def get_absolute_url(self):# Метод для получения ссылки на
+        # таблицу
+        return reverse('view_education', kwargs={"pk": self.pk})# Вывод данных в строковом виде
 
-    def __str__(self):
+    def __str__(self):# Вывод данных в строковом виде
         return f'''{self.university} -
         {self.skill} -
         {self.education_date} -
         '''
 
-    class Meta:
-        verbose_name = 'Образование'
-        verbose_name_plural = 'Образования'
-        ordering = ['university']
+    class Meta:# Расширяем возможность класса
+        verbose_name = 'Образование'# Имя таблицы в единственном числе
+        verbose_name_plural = 'Образования'# Имя таблицы во множественном
+        # числе
+        ordering = ['university']# Сортировка полю имени
 
 
-class Category(models.Model):
-    direction = models.CharField(
-        'Направление',
-        max_length=1000,
-        blank=True,
-        null=True
+class Category(models.Model):# Создаем таблицу
+    direction = models.CharField(# Поле с названием направлений
+        'Направление',# Аргумент для альтернативного
+        # имени поля
+        max_length=1000,# Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,# Аргумент для обозначения поля
+        null=True# Аргумент для обозначения поля
+        # пустым
     )
 
-    def get_absolute_url(self):
-        return reverse('view_category', kwargs={"pk": self.pk})
+    def get_absolute_url(self):# Метод для получения ссылки на
+        # таблицу
+        return reverse('view_category', kwargs={"pk": self.pk})# Возвращаем ссылку на таблицу
 
-    def __str__(self):
+    def __str__(self):# Вывод данных в строковом виде
         return f'''- {self.direction}
         '''
 
-    class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
-        ordering = ['direction']
+    class Meta:# Расширяем возможность класса
+        verbose_name = 'Категория'# Имя таблицы в единственном числе
+        verbose_name_plural = 'Категории'# Имя таблицы во множественном
+        # числе
+        ordering = ['direction']# Сортировка полю имени
 
 
-class Activity(models.Model):
-    work = models.CharField(
-        'Деятельность',
-        max_length=1000,
-        blank=True,
-        null=True
+class Activity(models.Model):# Создаем таблицу
+    work = models.CharField(# Поле с названием деятельности
+        'Деятельность',# Аргумент для альтернативного
+        # имени поля
+        max_length=1000,# Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,# Аргумент для обозначения поля
+        null=True# Аргумент для обозначения поля
+        # пустым
     )
 
-    def get_absolute_url(self):
-        return reverse('view_activity', kwargs={"pk": self.pk})
+    def get_absolute_url(self):# Метод для получения ссылки на
+        # таблицу
+        return reverse('view_activity', kwargs={"pk": self.pk})# Вывод данных в строковом виде
 
-    def __str__(self):
+    def __str__(self):# Вывод данных в строковом виде
         return f'''- {self.work}
         '''
 
-    class Meta:
-        verbose_name = 'Деятельность'
-        verbose_name_plural = 'Деятельность'
-        ordering = ['work']
+    class Meta:# Расширяем возможность класса
+        verbose_name = 'Деятельность'# Имя таблицы в единственном числе
+        verbose_name_plural = 'Деятельность'# Имя таблицы во множественном
+        # числе
+        ordering = ['work']# Сортировка полю имени
 
 
-class Location(models.Model):
-    city = models.CharField(
-        'Город',
-        max_length=1000,
-        blank=True,
-        null=True
+class Location(models.Model):# Создаем таблицу
+    city = models.CharField(# Поле с названием города
+        'Город',# Аргумент для альтернативного
+        # имени поля
+        max_length=1000,# Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True,# Аргумент для обозначения поля
+        null=True# Аргумент для обозначения поля
+        # пустым
     )
 
-    def get_absolute_url(self):
-        return reverse('view_location', kwargs={"pk": self.pk})
+    def get_absolute_url(self):# Метод для получения ссылки на
+        # таблицу
+        return reverse('view_location', kwargs={"pk": self.pk})# Возвращаем ссылку на таблицу
 
-    def __str__(self):
+    def __str__(self):# Вывод данных в строковом виде
         return f'''г. {self.city} 
         '''
 
-    class Meta:
-        verbose_name = 'Местонахождение'
-        verbose_name_plural = 'Местонахождения'
-        ordering = ['city']
+    class Meta:# Расширяем возможность класса
+        verbose_name = 'Местонахождение'# Имя таблицы в единственном числе
+        verbose_name_plural = 'Местонахождения'# Имя таблицы во множественном
+        # числе
+        ordering = ['city']# Сортировка полю имени
 
 
-class Application(models.Model):
-    employer = models.ForeignKey(
-        Employer,
-        on_delete=models.CASCADE
+class Application(models.Model):# Создаем таблицу
+    employer = models.ForeignKey(# Поле для выбора сотрудников
+        Employer,# Аргумент связи с таблицей
+        # содержащий список сотрудников
+        on_delete=models.CASCADE# Аргумент для определения как
+        # удалять информацию в случае удаления поля
     )
-    date = models.DateTimeField()
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE
+    date = models.DateTimeField()# Поле для даты
+    category = models.ForeignKey(# Поле для выбора категории
+        Category,# Аргумент связи с таблицей
+        # содержащий список категорий
+        on_delete=models.CASCADE# Аргумент для определения как
+        # удалять информацию в случае удаления поля
     )
-    author = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
+    author = models.ForeignKey(# Поле для выбора города
+        User,# Аргумент связи с таблицей
+        on_delete=models.CASCADE# Аргумент для определения как
+        # удалять информацию в случае удаления поля
     )
-    def __str__(self):
+    def __str__(self):# Вывод данных в строковом виде
         return f'{self.employer}'
 
-    class Meta:
-        verbose_name = 'Заявка'
-        verbose_name_plural = 'Заявки'
-        ordering = ['-date']
+    class Meta:# Расширяем возможность класса
+        verbose_name = 'Заявка'# Имя таблицы в единственном числе
+        verbose_name_plural = 'Заявки'# Имя таблицы во множественном
+        # числе
+        ordering = ['-date']# Сортировка полю имени
 
 
-class Slider(models.Model):
-    image = models.ImageField(
-        upload_to='slider/'
+class Slider(models.Model):# Создаем таблицу
+    image = models.ImageField(# Поле с фото
+        upload_to='slider/'# Поле куда загружать
     )
-    title = models.CharField(
-        max_length=50
+    title = models.CharField(# Поле с названием
+        max_length=50# Аргумент для максимального
+        # количества знаков (обязательный)
     )
-    content = models.CharField(
-        max_length=200,
-        blank=True
+    content = models.CharField(# Поле с названием
+        max_length=200,# Аргумент для максимального
+        # количества знаков (обязательный)
+        blank=True# Аргумент для обозначения поля
     )
-    date = models.DateTimeField(
-        auto_now_add=True
+    date = models.DateTimeField(# Поле с названием года образования
+        auto_now_add=True# Поле автовставкой даты
     )
-    def __str__(self):
+    def __str__(self):# Вывод данных в строковом виде
         return f'{self.title}'
 
-    class Meta:
-        verbose_name = 'Слайд'
-        verbose_name_plural = 'Слайды'
-        ordering = ['-date']
+    class Meta:# Расширяем возможность класса
+        verbose_name = 'Слайд'# Имя таблицы в единственном числе
+        verbose_name_plural = 'Слайды'# Имя таблицы во множественном
+        # числе
+        ordering = ['-date']# Сортировка полю имени

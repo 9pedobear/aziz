@@ -2,12 +2,12 @@ from django import forms
 from .models import *
 
 
-class FeedbackForm(forms.ModelForm):
-    class Meta:
-        model = Feedback
-        fields = ['name', 'question', 'phone']
+class FeedbackForm(forms.ModelForm):# Создаем форму
+    class Meta:# Дополняем класс
+        model = Feedback# соединяем с моделью
+        fields = ['name', 'question', 'phone']# Поля для заполнения
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'question': forms.Textarea(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),# стиль Поля
+            'question': forms.Textarea(attrs={'class': 'form-control'}),# стиль Поля
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),# стиль Поля
         }

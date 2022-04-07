@@ -23,12 +23,12 @@ urlpatterns = [
     path('', include('employer.urls'))
 ]
 
-if settings.DEBUG: # При включенном режиме дебаггинга будет работать утилита
-    import debug_toolbar # <--- Вот эта
-    urlpatterns = [                                      #<-\
-        path('__debug__/', include(debug_toolbar.urls)), #<- - Все это
-                      # подключается по документации
-    ] + urlpatterns                                      #<-/
-    urlpatterns += static(settings.MEDIA_URL,
+# if settings.DEBUG: # При включенном режиме дебаггинга будет работать утилита
+#     import debug_toolbar # <--- Вот эта
+#     urlpatterns = [                                      #<-\
+#         path('__debug__/', include(debug_toolbar.urls)), #<- - Все это
+#                       # подключается по документации
+#     ] + urlpatterns                                      #<-/
+urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT) # Подключаем
     # наши медиа файлы

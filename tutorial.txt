@@ -1,0 +1,16 @@
+Чтобы запустить проект наберите команды
+1 python3 -m venv venv
+2 source venv/bin/activate
+3 python manage.py runserver
+
+Если нет venv
+1 pip install python3-venv
+
+Если нет pip
+1 python -m ensurepip --upgrade
+
+Если нет пайтона
+1 brew install python3
+
+Если нет brew
+1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

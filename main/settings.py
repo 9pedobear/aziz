@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'employer.apps.EmployerConfig', # Подключаем наше приложение c сотрудниками
     'feedback.apps.FeedbackConfig', # Подключаем наше приложение с отзывами
-    'debug_toolbar', # Подключаем штучку которая будет показавать ошибки
+    # 'debug_toolbar', # Подключаем штучку которая будет показавать ошибки
     'crispy_forms', # Подключаем штучку которая будет изменять нашу форму
     'media'
 ]
@@ -54,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware', # Настройка для debug_toolbar
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware', # Настройка для debug_toolbar
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
